@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Receitas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        .container-fluid{
+           padding:20px;
+        }
+
+        .pnlCatalogo{
+            /*display: flex;*/
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body onload="preencheCatalago()">
+    <div class="container-fluid bg-warning">
+        <h1 class="text-center">Catálogo de Receitas</h1>
+        <div class="row justify-content-center" id="pnlCatalogo" class="pnlCatalogo"></div>
+    </div>
+
+
+    <script>
+        var receitas = [
+            {
+                titulo: "Pao de queijo vegano",
+                imagem: "img/pao-de-queijo-vegano.png",
+                preparo: "Em um recipiente, coloque a batata cozida e amasse bem com um garfo até ficar um purê bem macio, adicione os ingredientes líquidos: o azeite e a água morna. Misture, Acrescente o polvilho doce, o salgado e o sal. Misture bem com as mãos; Misture até a massa ficar homogênea, firme e que estica um pouco sem despedaçar, pegue porções da massa e molde em bolinhas pequenas, em uma forma untada com óleo, disponha as bolinhas com uma distância entre elas e leve ao forno preaquecido a 230 ºC por cerca de 15 minutos.",
+                ingredientes: ["1 xícara de chá de batata cozida", "2 xícaras de chá de polvilho doce", "1/2 xícara de chá de polvilho azedo", "1/2 xícara de chá de água morna", "1/3 de xícara de chá de azeite", "Sal a gosto"]
+
+            },
+            {
+                titulo: "Pao ciabatta",
+                imagem: "img/pao-ciabatta.png",
+                preparo: "Em uma batedeira, adicione a farinha de trigo, o fermento e o sal, comece a bater na função sovar e vá adicionando a água aos poucos, por fim, acrescente o azeite e deixe sovar por 15 minutos; Despeje a massa em uma vasilha grande untada com azeite, polvilhe farinha por cima e deixe descansar por 3 horas em um ambiente levemente aquecido; Quando a massa dobrar de volume, despeje-a em uma superfície limpa com farinha de trigo e trabalhe a massa com as mãos, até obter o formato desejado, polvilhe mais farinha por cima e corte a massa em tiras verticais com um cortador de pizza; Distribua as massas cortadas em uma assadeira; Asse em forno preaquecido a 180ºC por cerca de 30 minutos ou até dourar.",
+                ingredientes: ["500 g de farinha de trigo", "10 g de fermento seco de pão", "10 g de sal", "350 ml de água", "50 ml de azeite", "Farinha de trigo para polvilhar"],
+
+            },
+            {
+                titulo: "Smoothie de Banana e Frutas Vermelhas",
+                imagem: "img/smoothie-de-banana-e-frutas-vermelhas-capa.png",
+                preparo: "Reúna todos os ingredientes do smoothie de banana e frutas vermelhas, descasque as bananas, pique elas, os morangos, os mirtilos e as amoras. Congele-as de um dia para o outro, em um liquidificador ou mixer, coloque todos os ingredientes e bata até ficar homogêneo (reserve algumas frutas para enfeitar); Transfira a mistura para um copo e enfeite com as frutas; Agora é só servir esse smoothie geladinho. Bom apetite!",
+                ingredientes: ["2 bananas bem maduras (prata, nanica ou banana-maçã)", "6 morangos", "20 mirtilos", "6 amoras grandes", "100 ml de água"],
+            }
+        ];
+
+        function getListaIngredientes(receita) {
+            return `<ul>${receita.ingredientes.map(ingrediente => `<li>${ingrediente}</li>`).join('')}</ul>`;
+        }
+
+        function getCard(receita) {
+            return `
+                <div class="card m-2 mb-4" style="width:250px;">
+                    <img src="${receita.imagem}" class="card-img-top" alt="${receita.titulo}" style="height:200px">
+                    <div class="card-body">
+                        <h5 class="card-tittle">${receita.titulo}</h5>
+                        <div class="card-text">${getListaIngredientes(receita)}<hr>${receita.preparo}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function preencheCatalago() {
+            var Catalogo = document.getElementById("pnlCatalogo");
+            var htreceitas = receitas.map(receita => getCard(receita)).reduce((acc, cur) => acc + cur, "");
+            Catalogo.innerHTML = htreceitas;
+        }
+
+    </script>
+</body>
+</html>
